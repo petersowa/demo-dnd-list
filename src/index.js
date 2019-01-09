@@ -8,16 +8,12 @@ import * as serviceWorker from './serviceWorker';
 
 import initialData from './data/initial-data';
 import Column from './components/column';
-console.log(initialData);
 
 // TaskApp Components
 class TaskApp extends Component {
   state = initialData;
 
   onDragEnd = result => {
-    console.log(result);
-    //  TODO: reorder our column
-
     const { destination, source, draggableId } = result;
 
     if (!destination) return;
