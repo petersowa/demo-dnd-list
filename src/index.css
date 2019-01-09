@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+:root {
+  --bg-color: white;
+  --text-color: black;
+  --bg-link: lightgrey;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Lato;
+  font-size: 2rem;
+  background-color: var(--bg-color);
+}
+
+* {
+  margin: 0;
+  color: var(--text-color);
+  text-decoration: none;
+  list-style: none;
+}
+
+a {
+  background-color: var(--bg-link);
+  border-radius: 0.4rem;
+  padding: 0rem 0.4rem;
+}
