@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext } from 'react-beautiful-dnd';
+import styled from 'styled-components';
 
 import './index.css';
 
@@ -8,6 +9,11 @@ import * as serviceWorker from './serviceWorker';
 
 import initialData from './data/initial-data';
 import Column from './components/column';
+
+const Container = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+`;
 
 // TaskApp Components
 class TaskApp extends Component {
@@ -58,11 +64,15 @@ class TaskApp extends Component {
         onDragUpdate={this.onDragUpdate}
         onDragStart={this.onDragStart}
       >
-        {this.state.columnOrder.map(columnId => {
-          const column = this.state.columns[columnId];
-          const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);
-          return <Column key={column.id} column={column} tasks={tasks} />;
-        })}
+        <Container>
+          {this.state.columnOrder.map(columnId => {
+            const column = this.state.columns[columnId];
+            const tasks = column.taskIds.map(
+              taskId => this.state.tasks[taskId]
+            );
+            return <Column key={column.id} column={column} tasks={tasks} />;
+          })}
+        </Container>
       </DragDropContext>
     );
   }

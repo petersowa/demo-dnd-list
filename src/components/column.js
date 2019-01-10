@@ -10,6 +10,8 @@ const Container = styled.div`
   border-radius: 0.4rem;
   padding: 0.4rem;
   background-color: silver;
+  display: flex;
+  flex-direction: column;
 `;
 const Title = styled.h3`
   padding: 8px;
@@ -19,6 +21,8 @@ const TaskList = styled.ul`
   padding: 8px;
   transition: background-color 0.2s ease;
   background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
+  flex-grow: 1;
+  min-height: 100px;
 `;
 
 // Column functional component
