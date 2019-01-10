@@ -44,15 +44,35 @@ class TaskApp extends Component {
     )
       return;
 
-    const column = this.state.columns[source.droppableId];
-    const newTaskIds = Array.from(column.taskIds);
-    newTaskIds.splice(source.index, 1);
-    newTaskIds.splice(destination.index, 0, draggableId);
+    const startColumn = this.state.columns[source.droppableId];
+    const finishColumn = this.state.columns[destination.droppableId];
 
-    this.setState({
+    if (startColumn === finishColumn) {
+      const newTaskIds = Array.from(startColumn.taskIds);
+      newTaskIds.splice(source.index, 1);
+      newTaskIds.splice(destination.index, 0, draggableId);
+
+      return this.setState({
+        columns: {
+          ...this.state.columns,
+          [source.droppableId]: { ...startColumn, taskIds: [...newTaskIds] },
+        },
+      });
+    }
+
+    const sourceTaskIds = Array.from(startColumn.taskIds);
+    const destinationTaskIds = Array.from(finishColumn.taskIds);
+    sourceTaskIds.splice(source.index, 1);
+    destinationTaskIds.splice(destination.index, 0, draggableId);
+
+    return this.setState({
       columns: {
         ...this.state.columns,
-        [source.droppableId]: { ...column, taskIds: [...newTaskIds] },
+        [source.droppableId]: { ...startColumn, taskIds: [...sourceTaskIds] },
+        [destination.droppableId]: {
+          ...finishColumn,
+          taskIds: [...destinationTaskIds],
+        },
       },
     });
   };
