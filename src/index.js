@@ -13,33 +13,51 @@ import Column from './components/column';
 class TaskApp extends Component {
   state = initialData;
 
+  onDragStart = () => {
+    //document.body.style.backgroundColor = 'orange';
+    document.body.style.transition = 'background-color 0.2s ease';
+  };
+
+  onDragUpdate = update => {
+    const { destination } = update;
+    const opacity = destination
+      ? destination.index / Object.keys(this.state.tasks).length
+      : 0;
+    document.body.style.backgroundColor = `rgba(153,141,217,${opacity})`;
+  };
+
   onDragEnd = result => {
     const { destination, source, draggableId } = result;
+    document.body.style.backgroundColor = 'inherit';
 
     if (!destination) return;
 
-    const srcColumn = source.droppableId;
-    const desColumn = destination.droppableId;
+    if (
+      source.droppableId === destination.droppableId &&
+      destination.index === source.index
+    )
+      return;
 
-    if (srcColumn === desColumn && destination.index === source.index) return;
-
-    const column = this.state.columns[srcColumn];
-    const newTaskIds = Array.from(column.taskIds).filter(
-      id => id !== draggableId
-    );
+    const column = this.state.columns[source.droppableId];
+    const newTaskIds = Array.from(column.taskIds);
+    newTaskIds.splice(source.index, 1);
     newTaskIds.splice(destination.index, 0, draggableId);
 
     this.setState({
       columns: {
         ...this.state.columns,
-        [srcColumn]: { ...column, taskIds: [...newTaskIds] },
+        [source.droppableId]: { ...column, taskIds: [...newTaskIds] },
       },
     });
   };
 
   render() {
     return (
-      <DragDropContext onDragEnd={this.onDragEnd}>
+      <DragDropContext
+        onDragEnd={this.onDragEnd}
+        onDragUpdate={this.onDragUpdate}
+        onDragStart={this.onDragStart}
+      >
         {this.state.columnOrder.map(columnId => {
           const column = this.state.columns[columnId];
           const tasks = column.taskIds.map(taskId => this.state.tasks[taskId]);

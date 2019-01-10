@@ -7,17 +7,19 @@ const Container = styled.div`
   border-radius: 0.4rem;
   padding: 8px;
   margin-bottom: 8px;
-  background-color: white;
+  transition: background-color 0.2s ease;
+  background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
 `;
 
 export default function({ task, index }) {
   return (
     <Draggable draggableId={task.id} index={index}>
-      {provided => (
+      {(provided, snapshot) => (
         <Container
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
+          isDragging={snapshot.isDragging}
         >
           {task.content}
         </Container>
