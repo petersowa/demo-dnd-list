@@ -12,7 +12,7 @@ import Column from './components/column';
 
 const Container = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 `;
 
 // TaskApp Components

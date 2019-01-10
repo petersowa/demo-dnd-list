@@ -5,6 +5,7 @@
   --bg-color: white;
   --text-color: black;
   --bg-link: lightgrey;
+  --shadow1: 10px 10px 34px 0px rgba(0, 0, 0, 0.75);
 }
 
 body {

@@ -12,6 +12,7 @@ const Container = styled.div`
   background-color: silver;
   display: flex;
   flex-direction: column;
+  box-shadow: var(--shadow1);
 `;
 const Title = styled.h3`
   padding: 8px;
