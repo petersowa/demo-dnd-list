@@ -16,7 +16,7 @@ const Container = styled.div`
 
 export default function({ task, index }) {
   return (
-    <Draggable draggableId={task.id} index={index}>
+    <Draggable draggableId={task.id} index={index} type="task">
       {(provided, snapshot) => (
         <Container
           {...provided.draggableProps}
