@@ -16,6 +16,10 @@ const initialData = {
       id: 'task-4',
       content: 'Cook dinner',
     },
+    'task-5': {
+      id: 'task-5',
+      content: 'Walk the dog',
+    },
   },
   columns: {
     'column-1': {
@@ -31,10 +35,20 @@ const initialData = {
     'column-3': {
       id: 'column-3',
       title: 'Done',
+      taskIds: ['task-5'],
+    },
+    'column-4': {
+      id: 'column-4',
+      title: 'Future',
+      taskIds: [],
+    },
+    'column-5': {
+      id: 'column-5',
+      title: `Matt's`,
       taskIds: [],
     },
   },
-  columnOrder: ['column-1', 'column-2', 'column-3'],
+  columnOrder: ['column-1', 'column-2', 'column-3', 'column-4', 'column-5'],
 };
 
 export default initialData;
