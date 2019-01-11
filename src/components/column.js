@@ -21,10 +21,26 @@ const Title = styled.h3`
 const TaskList = styled.ul`
   padding: 8px;
   transition: background-color 0.2s ease;
-  background-color: ${props => (props.isDraggingOver ? 'skyblue' : 'white')};
+  background-color: ${props => (props.isDraggingOver ? 'silver' : 'white')};
   flex-grow: 1;
   min-height: 100px;
 `;
+
+class InnerList extends React.Component {
+  shouldComponentUpdate = (nextProps, nextState) => {
+    if (nextProps.tasks === this.props.tasks) {
+      return false;
+    }
+    return true;
+  };
+
+  render() {
+    const { tasks } = this.props;
+    return tasks.map((task, index) => (
+      <Task key={task.id} task={task} index={index} />
+    ));
+  }
+}
 
 // Column functional component
 class Column extends React.Component {
@@ -33,12 +49,8 @@ class Column extends React.Component {
     return (
       <Draggable draggableId={column.id} index={index} type="column">
         {provided => (
-          <Container
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            <Title>{column.title}</Title>
+          <Container ref={provided.innerRef} {...provided.draggableProps}>
+            <Title {...provided.dragHandleProps}>{column.title}</Title>
             <Droppable droppableId={column.id} type="task">
               {(provided, snapshot) => (
                 <TaskList
@@ -46,9 +58,8 @@ class Column extends React.Component {
                   {...provided.droppableProps}
                   isDraggingOver={snapshot.isDraggingOver}
                 >
-                  {tasks.map((task, index) => (
-                    <Task key={task.id} task={task} index={index} />
-                  ))}
+                  <InnerList tasks={tasks} />
+
                   {provided.placeholder}
                 </TaskList>
               )}

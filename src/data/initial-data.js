@@ -47,8 +47,20 @@ const initialData = {
       title: `Matt's`,
       taskIds: [],
     },
+    'column-6': {
+      id: 'column-6',
+      title: `Peter's`,
+      taskIds: [],
+    },
   },
-  columnOrder: ['column-1', 'column-2', 'column-3', 'column-4', 'column-5'],
+  columnOrder: [
+    'column-1',
+    'column-2',
+    'column-3',
+    'column-4',
+    'column-5',
+    'column-6',
+  ],
 };
 
 export default initialData;

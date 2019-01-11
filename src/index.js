@@ -12,9 +12,21 @@ import Column from './components/column';
 
 const Container = styled.div`
   display: grid;
+  width: max-content;
   grid-auto-columns: minmax(12rem, 20%);
   grid-auto-flow: column;
+  background-color: ${props => (props.isDraggingOver ? 'red' : 'silver')};
 `;
+
+class InnerList extends React.PureComponent {
+  render() {
+    const { column, index, taskMap } = this.props;
+    const tasks = column.taskIds.map(taskId => taskMap[taskId]);
+    return (
+      <Column key={column.id} index={index} column={column} tasks={tasks} />
+    );
+  }
+}
 
 // TaskApp Components
 class TaskApp extends Component {
@@ -26,6 +38,7 @@ class TaskApp extends Component {
   };
 
   onDragUpdate = update => {
+    console.log('drag update');
     const { destination } = update;
     const opacity = destination
       ? destination.index / Object.keys(this.state.tasks).length
@@ -42,11 +55,11 @@ class TaskApp extends Component {
     if (
       source.droppableId === destination.droppableId &&
       destination.index === source.index
-    )
+    ) {
       return;
+    }
 
     if (result.type === 'column') {
-      console.log(result);
       const columnOrder = Array.from(this.state.columnOrder);
       columnOrder.splice(source.index, 1);
       columnOrder.splice(destination.index, 0, draggableId);
@@ -94,20 +107,26 @@ class TaskApp extends Component {
         onDragUpdate={this.onDragUpdate}
         onDragStart={this.onDragStart}
       >
-        <Droppable droppableId="id" type="column" direction="horizontal">
-          {provided => (
-            <Container ref={provided.innerRef}>
+        <Droppable
+          droppableId="all-columns"
+          type="column"
+          direction="horizontal"
+        >
+          {(provided, snapshot) => (
+            <Container
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              isDraggingOver={snapshot.isDraggingOver}
+            >
               {this.state.columnOrder.map((columnId, index) => {
                 const column = this.state.columns[columnId];
-                const tasks = column.taskIds.map(
-                  taskId => this.state.tasks[taskId]
-                );
+
                 return (
-                  <Column
+                  <InnerList
                     key={column.id}
                     index={index}
                     column={column}
-                    tasks={tasks}
+                    taskMap={this.state.tasks}
                   />
                 );
               })}
