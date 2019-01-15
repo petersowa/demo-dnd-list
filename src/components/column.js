@@ -43,32 +43,27 @@ class InnerList extends React.Component {
 }
 
 // Column functional component
-class Column extends React.Component {
-  render() {
-    const { column, tasks, index } = this.props;
-    return (
-      <Draggable draggableId={column.id} index={index} type="column">
-        {provided => (
-          <Container ref={provided.innerRef} {...provided.draggableProps}>
-            <Title {...provided.dragHandleProps}>{column.title}</Title>
-            <Droppable droppableId={column.id} type="task">
-              {(provided, snapshot) => (
-                <TaskList
-                  ref={provided.innerRef}
-                  {...provided.droppableProps}
-                  isDraggingOver={snapshot.isDraggingOver}
-                >
-                  <InnerList tasks={tasks} />
+const Column = ({ column, tasks, index }) => (
+  <Draggable draggableId={column.id} index={index} type="column">
+    {provided => (
+      <Container ref={provided.innerRef} {...provided.draggableProps}>
+        <Title {...provided.dragHandleProps}>{column.title}</Title>
+        <Droppable droppableId={column.id} type="task">
+          {(provided, snapshot) => (
+            <TaskList
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+              isDraggingOver={snapshot.isDraggingOver}
+            >
+              <InnerList tasks={tasks} />
 
-                  {provided.placeholder}
-                </TaskList>
-              )}
-            </Droppable>
-          </Container>
-        )}
-      </Draggable>
-    );
-  }
-}
+              {provided.placeholder}
+            </TaskList>
+          )}
+        </Droppable>
+      </Container>
+    )}
+  </Draggable>
+);
 
 export default Column;
