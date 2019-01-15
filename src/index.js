@@ -12,8 +12,8 @@ import Column from './components/column';
 
 const Container = styled.div`
   display: grid;
-  width: max-content;
-  grid-auto-columns: minmax(12rem, 20%);
+  width: fit-content;
+  grid-auto-columns: minmax(15rem, 20rem);
   grid-auto-flow: column;
   background-color: ${props => (props.isDraggingOver ? 'red' : 'silver')};
 `;
