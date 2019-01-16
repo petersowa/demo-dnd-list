@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Draggable } from 'react-beautiful-dnd';
+import React from 'react'
+import styled from 'styled-components'
+import { Draggable } from 'react-beautiful-dnd'
 
 const Container = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const Container = styled.div`
   transition: background-color 0.2s ease;
   background-color: ${props => (props.isDragging ? 'lightgreen' : 'white')};
   box-shadow: 10px 10px 34px 0px rgba(0, 0, 0, 0.75);
-`;
+`
 
 export default function({ task, index }) {
   return (
@@ -28,5 +28,5 @@ export default function({ task, index }) {
         </Container>
       )}
     </Draggable>
-  );
+  )
 }

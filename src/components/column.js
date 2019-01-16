@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import React from 'react'
+import styled from 'styled-components'
+import { Droppable, Draggable } from 'react-beautiful-dnd'
 
-import Task from './task';
+import Task from './task'
 
 const Container = styled.div`
   margin: 8px;
@@ -13,32 +13,32 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   box-shadow: var(--shadow1);
-`;
+`
 const Title = styled.h3`
   padding: 8px;
   background-color: white;
-`;
+`
 const TaskList = styled.ul`
   padding: 8px;
   transition: background-color 0.2s ease;
   background-color: ${props => (props.isDraggingOver ? 'silver' : 'white')};
   flex-grow: 1;
   min-height: 100px;
-`;
+`
 
 class InnerList extends React.Component {
   shouldComponentUpdate = (nextProps, nextState) => {
     if (nextProps.tasks === this.props.tasks) {
-      return false;
+      return false
     }
-    return true;
-  };
+    return true
+  }
 
   render() {
-    const { tasks } = this.props;
+    const { tasks } = this.props
     return tasks.map((task, index) => (
       <Task key={task.id} task={task} index={index} />
-    ));
+    ))
   }
 }
 
@@ -64,6 +64,6 @@ const Column = ({ column, tasks, index }) => (
       </Container>
     )}
   </Draggable>
-);
+)
 
-export default Column;
+export default Column

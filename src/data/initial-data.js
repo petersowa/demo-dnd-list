@@ -61,6 +61,6 @@ const initialData = {
     'column-5',
     'column-6',
   ],
-};
+}
 
-export default initialData;
+export default initialData
